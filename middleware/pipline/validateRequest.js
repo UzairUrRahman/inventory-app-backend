@@ -30,10 +30,21 @@ const updateInventoryValidation = [
     body('remaining').optional().isInt({ min: 0 }).withMessage('Remaining should be a positive integer'),
 ];
 
+
+// update task
+const updateTasksValidation = [
+    body().isArray().withMessage('Tasks should be an array'),
+    body('*.checklistId').notEmpty().withMessage('Checklist ID is required'),
+    body('*.complete').isBoolean().withMessage('Complete status should be a boolean'),
+    body('*.taskId').notEmpty().withMessage('Task ID is required'),
+];
+
+
 module.exports = {
     addAdminValidation,
     addEmployeeValidation,
     createTaskValidation,
     createInventoryValidation,
-    updateInventoryValidation
+    updateInventoryValidation,
+    updateTasksValidation
 }
