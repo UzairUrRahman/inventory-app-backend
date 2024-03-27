@@ -66,7 +66,7 @@ exports.getTask = async (req, res)=> {
             {
                 $match: {
                     assignRole: category,
-                    status: { $in: ['pending', 'incomplete'] }
+                    status: { $in: ['incomplete'] }
                 }
             },
             // Project to filter only tasks where at least one sub-task is not completed

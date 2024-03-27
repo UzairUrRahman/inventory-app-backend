@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const taskSchema = new Schema({
     taskName: { type: String, required: true },
     assignRole: { type: String, required: true },
-    status: { type: String, enum: ['pending', 'completed', 'incomplete'], default: 'pending' },
+    status: { type: String, enum: ['pending', 'completed', 'incomplete'], default: 'incomplete' },
     tasks: [
         {
             title: { type: String, required: true },

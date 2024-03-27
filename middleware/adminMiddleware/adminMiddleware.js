@@ -5,7 +5,7 @@ const Admin = require('../../Model/admin');
 
 const authAdminMiddleware = async (req, res, next) => {
     const authHeader = req.header('Authorization');
-    console.log("authHeader", authHeader)
+    // console.log("authHeader", authHeader)
     if (!authHeader) {
         return res.status(401).json({ message: 'No token, authorization denied' });
     }
@@ -15,7 +15,7 @@ const authAdminMiddleware = async (req, res, next) => {
         
         // Verify token
         const decoded = jwt.verify(token, config.secret);
-        console.log("decoded", decoded);
+        // console.log("decoded", decoded);
         // Find user in admin model
         const user = await Admin.findById(decoded.adminId);
         if (!user) {
