@@ -7,6 +7,9 @@ const employeeSchema = new Schema({
     password: { type: String, required: true },
     role: { type: String, default: 'employee', immutable: true }, 
     category: { type: String, enum: ['bartender', 'cook'] }
+},
+{
+    timestamps : true
 });
 
 module.exports = mongoose.model('Employee', employeeSchema);
