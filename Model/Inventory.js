@@ -8,7 +8,7 @@ const inventorySchema = new Schema({
     order: { 
         type: Number
     }
-});
+}, {timestamps : true});
 
 // Middleware to update order field before saving
 inventorySchema.pre('save', function(next) {

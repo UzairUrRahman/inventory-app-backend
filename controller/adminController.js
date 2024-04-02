@@ -141,6 +141,16 @@ exports.getAllInventory = async (req, res) => {
     }
 };
 
+exports.fetchInventory = async () => {
+    try {
+        // Fetch all inventory items from the database
+        const inventory = await Inventory.find();
+        return inventory;
+    } catch (error) {
+       throw new Error(error.message);   
+     }
+}
+
 
 
 exports.updateInventory = async (req, res) => {
