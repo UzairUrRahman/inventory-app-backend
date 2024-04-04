@@ -1,15 +1,11 @@
 {
     "version": 2,
+    "name": "inventory-app-backend",
     "builds": [
-      {
-        "src": "index.js",
-        "use": "@now/node"
-      }
+      { "src": "script.js", "use": "@vercel/node" }
     ],
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "index.js"
-      }
+      { "src": "/(.*)", "dest": "/index.js" }
     ]
   }
+  
