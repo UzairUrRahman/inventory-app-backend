@@ -51,5 +51,5 @@ mongoose.connect(config.dbURL, { useNewUrlParser: true, useUnifiedTopology: true
     })
     .catch(err => console.error('Error connecting to MongoDB:', err));
 
-
+module.exports = app;
 
