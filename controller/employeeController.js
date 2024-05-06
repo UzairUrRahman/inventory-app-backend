@@ -70,37 +70,41 @@ exports.getTask = async (req, res)=> {
         if (role !== 'employee') {
             return res.status(403).json({ message: 'Forbidden. Only employees can access this route' });
         }
-        console.log("role")
+        console.log("role");
+        const getTask = await Task.find({
+            status : 'incomplete',
+            assignRole : category
+        });
         // Fetch tasks for employees
-        const tasks = await Task.aggregate([
-            // Match tasks with status pending or incomplete
-            {
-                $match: {
-                    assignRole: category,
-                    status: { $in: ['incomplete'] }
-                }
-            },
-            // Project to filter only tasks where at least one sub-task is not completed
-            {
-                $project: {
-                    tasks: {
-                        $filter: {
-                            input: '$tasks',
-                            as: 'task',
-                            cond: { $eq: ['$$task.completed', false] }
-                        }
-                    },
-                }
-            },
-            {
-                $match: {
-                    'tasks.0': { $exists: true } // Check if the first element of tasks array exists
-                }
-            }
-        ]);
+        // const tasks = await Task.aggregate([
+        //     // Match tasks with status pending or incomplete
+        //     {
+        //         $match: {
+        //             assignRole: category,
+        //             status: { $in: ['incomplete'] }
+        //         }
+        //     },
+        //     // Project to filter only tasks where at least one sub-task is not completed
+        //     {
+        //         $project: {
+        //             tasks: {
+        //                 $filter: {
+        //                     input: '$tasks',
+        //                     as: 'task',
+        //                     cond: { $eq: ['$$task.completed', false] }
+        //                 }
+        //             },
+        //         }
+        //     },
+        //     {
+        //         $match: {
+        //             'tasks.0': { $exists: true } // Check if the first element of tasks array exists
+        //         }
+        //     }
+        // ]);
               
-        console.log("tasks", tasks);
-        res.json(tasks);
+        // console.log("tasks", tasks);
+        res.json(getTask);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
