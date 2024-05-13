@@ -15,7 +15,7 @@ exports.sendEmail = async (htmlContent) => {
     // Email options
     const mailOptions = {
         from: process.env.USER_EMAIL,
-        to: 'zikarhashmi92@gmail.com',
+        to: 'nicoledawn8989@aol.com',
         subject: 'Inventory Report',
         html: htmlContent
     };
