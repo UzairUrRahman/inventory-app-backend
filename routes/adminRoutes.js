@@ -11,6 +11,7 @@ router.post('/register',addAdminValidation,validationHandler, adminController.re
 router.post('/login',addAdminValidation,validationHandler, adminController.login);
 router.post('/task',authAdminMiddleware, createTaskValidation,validationHandler, adminController.createTask);
 router.get('/task/:taskId',authAdminMiddleware, adminController.taskDetails);
+router.get('/task/delete/:taskId',authAdminMiddleware, adminController.DeleteTaskCheckList);
 router.get('/task', authAdminMiddleware, adminController.allTask);
 router.post('/inventory',authAdminMiddleware, createInventoryValidation,validationHandler, adminController.createInventory);
 router.get('/inventory', authAdminMiddleware, adminController.getAllInventory);

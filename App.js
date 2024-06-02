@@ -7,7 +7,7 @@ const cors = require('cors');
 const config = require('./config/config');
 const adminRoutes = require('./routes/adminRoutes');
 const employeeRoutes = require("./routes/employeeRoutes");
-const { getAllInventory, fetchInventory } = require('./controller/adminController');
+const { getAllInventory, fetchInventory, fetchAllTask, updateTasksStatus, updateOpeningTasksStatus, updateClosingTasksStatus } = require('./controller/adminController');
 const generateEmailTemplate = require('./MailServices/generateEmailTemplate');
 const { sendEmail } = require('./MailServices/InvertoryMail');
 const dotenv = require("dotenv").config();
@@ -34,6 +34,32 @@ cron.schedule('* * * * *', async () => {
         
         }
        return;
+    }catch(error){
+        console.log(
+        error
+        )
+    }
+});
+
+cron.schedule('0 7 * * *', async () => {
+    console.log("running on every  opening")
+    try{
+        const task = await  updateOpeningTasksStatus();
+        console.log(task);       
+        return;
+    }catch(error){
+        console.log(
+        error
+        )
+    }
+});
+
+cron.schedule('0 23 * * *', async () => {
+    console.log("running on every closing")
+    try{
+        const task = await  updateClosingTasksStatus();
+        console.log(task);       
+        return;
     }catch(error){
         console.log(
         error

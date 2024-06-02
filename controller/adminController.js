@@ -83,6 +83,27 @@ exports.taskDetails = async (req, res) =>{
     }
 }
 
+exports.DeleteTaskCheckList = async (req, res) =>{
+    const taskId = req.params.taskId;
+    console.log("Details")
+    try {
+        // Find task by ID in the database
+        const task = await Task.findByIdAndDelete(taskId);
+        
+        
+        if (!task) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+
+        // Return task details in the response
+        res.json({task, message : "Task has been deleted!"});
+    } catch (error) {
+        res.status(500).json({ message: 'Task not found' });
+    }
+}
+
+
+
 exports.allTask = async (req, res) => {
     try {
         console.log("coming!");
@@ -151,6 +172,45 @@ exports.fetchInventory = async () => {
      }
 }
 
+exports.updateOpeningTasksStatus = async () => {
+    try {
+      // Update only the tasks where taskName is "opening"
+      await Task.updateMany(
+        { taskName: "opening" },
+        {
+          $set: {
+            status: "incomplete",
+            "tasks.$[].completed": false
+          }
+        }
+      );
+  
+      console.log("Tasks updated successfully");
+    } catch (error) {
+      console.error("Error updating tasks:", error.message);
+      throw new Error(error.message);
+    }
+  };
+
+exports.updateClosingTasksStatus = async () => {
+    try {
+      // Update only the tasks where taskName is "opening"
+      await Task.updateMany(
+        { taskName: "closing" },
+        {
+          $set: {
+            status: "incomplete",
+            "tasks.$[].completed": false
+          }
+        }
+      );
+  
+      console.log("Tasks updated successfully");
+    } catch (error) {
+      console.error("Error updating tasks:", error.message);
+      throw new Error(error.message);
+    }
+  };
 
 
 exports.updateInventory = async (req, res) => {
